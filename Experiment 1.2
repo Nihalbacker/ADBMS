@@ -1,0 +1,702 @@
+
+1.2 DML COMMANDS 
+      a) DML COMMANDS-INSERT
+                       1.      Insert values in EMPLOYEE table.
+                       2.      Insert values in STUDENT table.
+                       3.      Insert values in INVOICE database. 
+     
+      b)DML COMMANDS- UPDATE
+                      1. Update the price of a particular product. 
+                      2. Change the name of city ‘kozhikode’ to ‘calicut’ in the customer table. 
+                      3. Update all prices with 2% of its original price. 
+                      4. Change the address, city, phone number of a particular customer. 
+                      5. Change the quantity of a purchased product of any inv_id.
+
+     c) DML COMMAND- DELETE
+                      1. Delete the record of customer id ‘103’. 
+                      2. Delete all purchase details of items its quantity less than 2. 
+                      3. Delete the purchase details of product ‘pen’ in the inv_id ‘874563’. 
+                      4. Delete details of employees who does not have phone number. 
+                      5. Delete all records from STUDENT table. 
+                      6. Delete Invoice details of a particular customer. 
+
+
+
+
+
+QUERIES
+-------
+
+
+1.2 DML COMMANDS 
+----------------
+
+a) DML COMMANDS-INSERT
+----------------------
+
+
+1.Insert values in EMPLOYEE table.
+---------------------------------
+
+mysql> INSERT INTO EMPLOYEE VALUES('Nihal','Kozhikode',2001,4567890,987654);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES('Mishab','Kozhikode',2001,678908,789043);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES('Miinhaj','Malappuram',2000,4323338,732754);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES('karthik','Perinthalmanna',2000,8432323,2321334);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES('Vyshnav','Palakkad',2001,947356,253348);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from EMPLOYEE;
++---------+----------------+------+----------+---------+
+| name    | cty            | DOB  | adhar_no | SSN     |
++---------+----------------+------+----------+---------+
+| Nihal   | Kozhikode      | 2001 |  4567890 |  987654 |
+| Mishab  | Kozhikode      | 2001 |   678908 |  789043 |
+| Miinhaj | Malappuram     | 2000 |  4323338 |  732754 |
+| karthik | Perinthalmanna | 2000 |  8432323 | 2321334 |
+| Vyshnav | Palakkad       | 2001 |   947356 |  253348 |
++---------+----------------+------+----------+---------+
+5 rows in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------
+
+2.Insert values in STUDENT table.
+---------------------------------
+
+mysql> INSERT INTO STUDENTS VALUES(23,'Nihal',22,'Poonoor','m');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO STUDENTS VALUES(25,'Niya',23,'Poonoor','f');
+Query OK, 1 row affected (0.45 sec)
+
+mysql> INSERT INTO STUDENTS VALUES(19,'Mishab',22,'Balussery','m');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> INSERT INTO STUDENTS VALUES(21,'Nadha',22,'Ulliyeri','f');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from STUDENTS;
++---------+--------+------+-----------+--------+
+| Roll_No | Name   | Age  | Address   | Gender |
++---------+--------+------+-----------+--------+
+|      19 | Mishab |   22 | Balussery | m      |
+|      21 | Nadha  |   22 | Ulliyeri  | f      |
+|      23 | Nihal  |   22 | Poonoor   | m      |
+|      25 | Niya   |   23 | Poonoor   | f      |
++---------+--------+------+-----------+--------+
+4 rows in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------
+
+
+
+
+3.Insert values in INVOICE database.
+------------------------------------
+
+CUSTOMER TABLE
+--------------
+
+mysql> INSERT INTO Customer VALUES(100,'Nihal','Thamarassery,Calicut','Calicut',428363427);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO Customer VALUES(101,'Mishab','Balussery,Calicut','Calicut',952734974);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Customer VALUES(102,'Niya','Thamarassery,Calicut','Calicut',985204567);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO Customer VALUES(103,'Aleefa','Mukkam,Calicut','Calicut',872537456);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Customer VALUES(104,'Nadha','Ulliyeri,Calicut','Calicut','456789999');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select  * from Customer;
++-----+--------+----------------------+---------+-----------+
+| id  | name   | address              | city    | ph_no     |
++-----+--------+----------------------+---------+-----------+
+| 100 | Nihal  | Thamarassery,Calicut | Calicut | 428363427 |
+| 101 | Mishab | Balussery,Calicut    | Calicut | 952734974 |
+| 102 | Niya   | Thamarassery,Calicut | Calicut | 985204567 |
+| 103 | Aleefa | Mukkam,Calicut       | Calicut | 872537456 |
+| 104 | Nadha  | Ulliyeri,Calicut     | Calicut | 456789999 |
++-----+--------+----------------------+---------+-----------+
+5 rows in set (0.00 sec)
+
+
+
+PRODUCT TABLE
+-------------
+
+mysql> Insert into Product values(150,'LEXI PEN',5);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Product values(151,'PEPSI 250',30);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Product values(152,'BISCUIT 250',50);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Product values(153,'PROCESSED FOOD S.P',140);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> Insert into Product values(210,'DINNRSET 10PC',1999);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Product values(213,'TOY 5Y',259);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Product values(216,'CUCUMBER 1KG',30);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Product values(223,'CARROT 1KG',50);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Product values(226,'NIRAPARA MATTA RICE',41);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Product values(230,'COLGATE T.P',50);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Product values(243,'PEPSI 1L',90);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Insert into Product values(255,'50-50 BISCUIT',30);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Product values(256,'DISPOSABLE MASK PACK',100);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM Product;
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 150 | LEXI PEN             |     5 |
+| 151 | PEPSI 250            |    30 |
+| 152 | BISCUIT 250          |    50 |
+| 153 | PROCESSED FOOD S.P   |   140 |
+| 210 | DINNRSET 10PC        |  1999 |
+| 213 | TOY 5Y               |   259 |
+| 216 | CUCUMBER 1KG         |    30 |
+| 223 | CARROT 1KG           |    50 |
+| 226 | NIRAPARA MATTA RICE  |    41 |
+| 230 | COLGATE T.P          |    50 |
+| 243 | PEPSI 1L             |    90 |
+| 255 | 50-50 BISCUIT        |    30 |
+| 256 | DISPOSABLE MASK PACK |   100 |
++-----+----------------------+-------+
+13 rows in set (0.00 sec)
+
+
+
+
+INVOICE_MASTER TABLE
+--------------------
+
+mysql> Insert into Invoice_master values(14092,100,'2023-03-23');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Invoice_master values(13847,100,'2023-02-21');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> Insert into Invoice_master values(16789,100,'2022-01-24');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> Insert into Invoice_master values(14567,100,'2023-03-10');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Invoice_master values(234562,101,'2023-03-16');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Invoice_master values(456789,101,'2021-04-27');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Invoice_master values(834567,102,'2023-03-20');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Invoice_master values(4379782,102,'2023-01-22');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Invoice_master values(634567,102,'2022-02-11');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Invoice_master values(9352624,102,'2023-01-09');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> Insert into Invoice_master values(0934567,103,'2023-03-08');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Invoice_master values(034563,103,'2023-02-10');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> Insert into Invoice_master values(8457382,104,'2022-12-23');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Invoice_master values(4567898,104,'2022-11-19');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Invoice_master values(874563,104,'2022-10-23');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from Invoice_master;
++---------+---------+------------+
+| inv_id  | cust_id | inv_date   |
++---------+---------+------------+
+|   13847 |     100 | 2023-02-21 |
+|   14092 |     100 | 2023-03-23 |
+|   14567 |     100 | 2023-03-10 |
+|   16789 |     100 | 2022-01-24 |
+|   34563 |     103 | 2023-02-10 |
+|  234562 |     101 | 2023-03-16 |
+|  456789 |     101 | 2021-04-27 |
+|  634567 |     102 | 2022-02-11 |
+|  834567 |     102 | 2023-03-20 |
+|  874563 |     104 | 2022-10-23 |
+|  934567 |     103 | 2023-03-08 |
+| 4379782 |     102 | 2023-01-22 |
+| 4567898 |     104 | 2022-11-19 |
+| 8457382 |     104 | 2022-12-23 |
+| 9352624 |     102 | 2023-01-09 |
++---------+---------+------------+
+15 rows in set (0.00 sec)
+
+
+
+INVOICE_ITEM TABLE
+--------------------
+
+
+mysql> Insert into Invoice_item values(13847,216,10);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Insert into Invoice_item values(14092,230,2);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> Insert into Invoice_item values(234562,255,3);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> Insert into Invoice_item values(4379782,243,2);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> Insert into Invoice_item values(4379782,152,3);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> Insert into Invoice_item values(9352624,213,2);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Invoice_item values(8457382,210,2);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Invoice_item values(634567,256,1);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Invoice_item values(9352624,226,4);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> Insert into Invoice_item values(4567898,223,3);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Invoice_item values(934567,153,4);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> Insert into Invoice_item values(934567,243,2);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Invoice_item values(934567,255,2);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Invoice_item values(874563,152,3);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> Insert into Invoice_item values(874563,150,5);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> Insert into Invoice_item values(874563,213,3);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> Insert into Invoice_item values(456789,213,3);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into Invoice_item values(456789,210,1);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from Invoice_item;
++---------+------+----------+
+| inv_id  | pid  | Quantity |
++---------+------+----------+
+|   13847 |  216 |       10 |
+|   14092 |  230 |        2 |
+|  234562 |  255 |        3 |
+| 4379782 |  243 |        2 |
+| 4379782 |  152 |        3 |
+| 9352624 |  213 |        2 |
+| 8457382 |  210 |        2 |
+|  634567 |  256 |        1 |
+| 9352624 |  226 |        4 |
+| 4567898 |  223 |        3 |
+|  934567 |  153 |        4 |
+|  934567 |  243 |        2 |
+|  934567 |  255 |        2 |
+|  874563 |  152 |        3 |
+|  874563 |  150 |        5 |
+|  874563 |  213 |        3 |
+|  456789 |  213 |        3 |
+|  456789 |  210 |        1 |
++---------+------+----------+
+18 rows in set (0.00 sec)
+
+
+-----------------------------------------------------------------------------------------
+
+
+
+b)DML COMMANDS- UPDATE
+-----------------------
+
+
+1. Update the price of a particular product.
+-------------------------------------------
+
+
+mysql> UPDATE Product SET PRICE=100 WHERE PID=223;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Product;
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 150 | LEXI PEN             |     5 |
+| 151 | PEPSI 250            |    30 |
+| 152 | BISCUIT 250          |    50 |
+| 153 | PROCESSED FOOD S.P   |   140 |
+| 210 | DINNRSET 10PC        |  1999 |
+| 213 | TOY 5Y               |   259 |
+| 216 | CUCUMBER 1KG         |    30 |
+| 223 | CARROT 1KG           |   100 |
+| 226 | NIRAPARA MATTA RICE  |    41 |
+| 230 | COLGATE T.P          |    50 |
+| 243 | PEPSI 1L             |    90 |
+| 255 | 50-50 BISCUIT        |    30 |
+| 256 | DISPOSABLE MASK PACK |   100 |
++-----+----------------------+-------+
+13 rows in set (0.00 sec)
+
+
+
+
+2. Change the name of city ‘kozhikode’ to ‘calicut’ in the customer table. 
+-------------------------------------------------------------------------
+
+mysql> select * from Customer;
++-----+--------+----------------------+---------+-----------+
+| id  | name   | address              | city    | ph_no     |
++-----+--------+----------------------+---------+-----------+
+| 100 | Nihal  | Thamarassery,Calicut | Calicut | 428363427 |
+| 101 | Mishab | Balussery,Calicut    | Calicut | 952734974 |
+| 102 | Niya   | Thamarassery,Calicut | Calicut | 985204567 |
+| 103 | Aleefa | Mukkam,Calicut       | Calicut | 872537456 |
+| 104 | Nadha  | Ulliyeri,Calicut     | Calicut | 456789999 |
++-----+--------+----------------------+---------+-----------+
+5 rows in set (0.00 sec)
+
+
+mysql> UPDATE Customer SET CITY='Kozhikode' WHERE CITY='Calicut';
+Query OK, 5 rows affected (0.46 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from Customer;
++-----+--------+----------------------+-----------+-----------+
+| id  | name   | address              | city      | ph_no     |
++-----+--------+----------------------+-----------+-----------+
+| 100 | Nihal  | Thamarassery,Calicut | Kozhikode | 428363427 |
+| 101 | Mishab | Balussery,Calicut    | Kozhikode | 952734974 |
+| 102 | Niya   | Thamarassery,Calicut | Kozhikode | 985204567 |
+| 103 | Aleefa | Mukkam,Calicut       | Kozhikode | 872537456 |
+| 104 | Nadha  | Ulliyeri,Calicut     | Kozhikode | 456789999 |
++-----+--------+----------------------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+
+3. Update all prices with 2% of its original price
+--------------------------------------------------
+
+
+mysql> select * from Product;
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 150 | LEXI PEN             |     5 |
+| 151 | PEPSI 250            |    30 |
+| 152 | BISCUIT 250          |    50 |
+| 153 | PROCESSED FOOD S.P   |   140 |
+| 210 | DINNRSET 10PC        |  1999 |
+| 213 | TOY 5Y               |   259 |
+| 216 | CUCUMBER 1KG         |    30 |
+| 223 | CARROT 1KG           |   100 |
+| 226 | NIRAPARA MATTA RICE  |    41 |
+| 230 | COLGATE T.P          |    50 |
+| 243 | PEPSI 1L             |    90 |
+| 255 | 50-50 BISCUIT        |    30 |
+| 256 | DISPOSABLE MASK PACK |   100 |
++-----+----------------------+-------+
+13 rows in set (0.00 sec)
+
+
+
+mysql> UPDATE Product SET price=price+(price*2/100);
+Query OK, 12 rows affected (0.05 sec)
+Rows matched: 13  Changed: 12  Warnings: 0
+
+mysql> select * from Product;
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 150 | LEXI PEN             |     5 |
+| 151 | PEPSI 250            |    31 |
+| 152 | BISCUIT 250          |    51 |
+| 153 | PROCESSED FOOD S.P   |   143 |
+| 210 | DINNRSET 10PC        |  2039 |
+| 213 | TOY 5Y               |   264 |
+| 216 | CUCUMBER 1KG         |    31 |
+| 223 | CARROT 1KG           |   102 |
+| 226 | NIRAPARA MATTA RICE  |    42 |
+| 230 | COLGATE T.P          |    51 |
+| 243 | PEPSI 1L             |    92 |
+| 255 | 50-50 BISCUIT        |    31 |
+| 256 | DISPOSABLE MASK PACK |   102 |
++-----+----------------------+-------+
+13 rows in set (0.00 sec)
+
+
+4. Change the address, city, phone number of a particular customer. 
+------------------------------------------------------------------
+
+
+mysql> UPDATE Customer SET address='Poonooor,Calicut',CITY='Calicut',ph_no=984564218 WHERE id=100;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Customer;
++-----+--------+----------------------+-----------+-----------+
+| id  | name   | address              | city      | ph_no     |
++-----+--------+----------------------+-----------+-----------+
+| 100 | Nihal  | Poonooor,Calicut     | Calicut   | 984564218 |
+| 101 | Mishab | Balussery,Calicut    | Kozhikode | 952734974 |
+| 102 | Niya   | Thamarassery,Calicut | Kozhikode | 985204567 |
+| 103 | Aleefa | Mukkam,Calicut       | Kozhikode | 872537456 |
+| 104 | Nadha  | Ulliyeri,Calicut     | Kozhikode | 456789999 |
++-----+--------+----------------------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+
+
+5. Change the quantity of a purchased product of any inv_id.
+-----------------------------------------------------------
+
+
+mysql> UPDATE Invoice_item SET Quantity=15 WHERE inv_id=634567 AND pid=256;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Invoice_item;
++---------+------+----------+
+| inv_id  | pid  | Quantity |
++---------+------+----------+
+|   13847 |  216 |       10 |
+|   14092 |  230 |        2 |
+|  234562 |  255 |        3 |
+| 4379782 |  243 |        2 |
+| 4379782 |  152 |        3 |
+| 9352624 |  213 |        2 |
+| 8457382 |  210 |        2 |
+|  634567 |  256 |       15 |
+| 9352624 |  226 |        4 |
+| 4567898 |  223 |        3 |
+|  934567 |  153 |        4 |
+|  934567 |  243 |        2 |
+|  934567 |  255 |        2 |
+|  874563 |  152 |        3 |
+|  874563 |  150 |        5 |
+|  874563 |  213 |        3 |
+|  456789 |  213 |        3 |
+|  456789 |  210 |        1 |
++---------+------+----------+
+18 rows in set (0.00 sec)
+
+
+-------------------------------------------------------------------------------------------
+
+
+c) DML COMMAND- DELETE
+-----------------------
+
+1. Delete the record of customer id ‘103’
+-----------------------------------------
+
+mysql> DELETE FROM Invoice_item WHERE inv_id=934567;
+Query OK, 3 rows affected (0.45 sec)
+
+mysql> DELETE FROM Invoice_master WHERE inv_id=934567;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> DELETE FROM Invoice_master WHERE inv_id=34563;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> DELETE FROM Customer WHERE id=103;
+Query OK, 1 row affected (0.05 sec)
+
+
+mysql> select * from Customer;
++-----+--------+----------------------+-----------+-----------+
+| id  | name   | address              | city      | ph_no     |
++-----+--------+----------------------+-----------+-----------+
+| 100 | Nihal  | Poonooor,Calicut     | Calicut   | 984564218 |
+| 101 | Mishab | Balussery,Calicut    | Kozhikode | 952734974 |
+| 102 | Niya   | Thamarassery,Calicut | Kozhikode | 985204567 |
+| 104 | Nadha  | Ulliyeri,Calicut     | Kozhikode | 456789999 |
++-----+--------+----------------------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+
+
+2. Delete all purchase details of items its quantity less than 2
+----------------------------------------------------------------
+
+
+mysql> DELETE FROM Invoice_item WHERE Quantity<2;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from Invoice_item;
++---------+------+----------+
+| inv_id  | pid  | Quantity |
++---------+------+----------+
+|   13847 |  216 |       10 |
+|   14092 |  230 |        2 |
+|  234562 |  255 |        3 |
+| 4379782 |  243 |        2 |
+| 4379782 |  152 |        3 |
+| 9352624 |  213 |        2 |
+| 8457382 |  210 |        2 |
+|  634567 |  256 |       15 |
+| 9352624 |  226 |        4 |
+| 4567898 |  223 |        3 |
+|  874563 |  152 |        3 |
+|  874563 |  150 |        5 |
+|  874563 |  213 |        3 |
+|  456789 |  213 |        3 |
++---------+------+----------+
+14 rows in set (0.00 sec)
+
+
+
+3. Delete the purchase details of product ‘pen’ in the inv_id ‘874563’
+------------------------------------------------------------------
+
+mysql> DELETE FROM Invoice_item WHERE inv_id=874563 AND pid=150;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from Invoice_item;
++---------+------+----------+
+| inv_id  | pid  | Quantity |
++---------+------+----------+
+|   13847 |  216 |       10 |
+|   14092 |  230 |        2 |
+|  234562 |  255 |        3 |
+| 4379782 |  243 |        2 |
+| 4379782 |  152 |        3 |
+| 9352624 |  213 |        2 |
+| 8457382 |  210 |        2 |
+|  634567 |  256 |       15 |
+| 9352624 |  226 |        4 |
+| 4567898 |  223 |        3 |
+|  874563 |  152 |        3 |
+|  874563 |  213 |        3 |
+|  456789 |  213 |        3 |
++---------+------+----------+
+13 rows in set (0.00 sec)
+
+
+
+4. Delete details of customer who does not have phone number.
+--------------------------------------------------------------
+
+mysql> DELETE FROM Customer WHERE ph_no IS NULL;
+Query OK, 2 rows affected (0.05 sec)
+
+mysql> select * from Customer;
++-----+--------+----------------------+-----------+-----------+
+| id  | name   | address              | city      | ph_no     |
++-----+--------+----------------------+-----------+-----------+
+| 100 | Nihal  | Poonooor,Calicut     | Calicut   | 984564218 |
+| 101 | Mishab | Balussery,Calicut    | Kozhikode | 952734974 |
+| 102 | Niya   | Thamarassery,Calicut | Kozhikode | 985204567 |
+| 104 | Nadha  | Ulliyeri,Calicut     | Kozhikode | 456789999 |
++-----+--------+----------------------+-----------+-----------+
+4 rows in set (0.00 sec)
+	
+
+
+
+5. Delete all records from STUDENT table
+-----------------------------------------
+
+
+
+mysql> delete from STUDENTS;
+Query OK, 4 rows affected (0.35 sec)
+
+mysql> select * from STUDENTS;
+Empty set (0.00 sec)
+
+
+
+
+
+
+
+6. Delete Invoice details of a particular customer
+--------------------------------------------------
+
+
+
+mysql> DELETE FROM Invoice_master WHERE cust_id=105;
+Query OK, 1 row affected (0.06 sec)
+
+
+mysql> select * from Invoice_master;
++---------+---------+------------+
+| inv_id  | cust_id | inv_date   |
++---------+---------+------------+
+|   13847 |     100 | 2023-02-21 |
+|   14092 |     100 | 2023-03-23 |
+|   14567 |     100 | 2023-03-10 |
+|   16789 |     100 | 2022-01-24 |
+|  202235 |     104 | 2023-02-02 |
+|  234562 |     101 | 2023-03-16 |
+|  456789 |     101 | 2021-04-27 |
+|  634567 |     102 | 2022-02-11 |
+|  834567 |     102 | 2023-03-20 |
+|  874563 |     104 | 2022-10-23 |
+| 4379782 |     102 | 2023-01-22 |
+| 4567898 |     104 | 2022-11-19 |
+| 8457382 |     104 | 2022-12-23 |
+| 9352624 |     102 | 2023-01-09 |
++---------+---------+------------+
+14 rows in set (0.00 sec)
+
+
+
+
+----------------------------------------------------------------------FINISH----------------------------------------------------------------------
+
+
+
