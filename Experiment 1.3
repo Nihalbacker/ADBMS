@@ -1,0 +1,241 @@
+a) TCL COMMANDS
+           1.    Commit
+           2.    Rollback
+           3.    Savepoint
+
+b) DCL COMMAND
+          Create two users user1, user2
+         1.      GRANT
+                    ->Give insert and select privilege to user 1 on customer table in the invoice database.
+                    ->Give update and delete privilege to user 2 on all tables in the invoice database.
+        2.      REVOKE
+                   ->Remove delete privilege of user 2.
+
+
+
+
+a) TCL COMMANDS
+
+1.Commit
+---------
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> INSERT INTO EMPLOYEE(name,cty,adhar_no) VALUES('Aswin','bangalore',73382632);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select * from EMPLOYEE;
++---------+----------------+------+----------+---------+
+| name    | cty            | DOB  | adhar_no | SSN     |
++---------+----------------+------+----------+---------+
+| Nihal   | Kozhikode      | 2001 |  4567890 |  987654 |
+| Mishab  | Kozhikode      | 2001 |   678908 |  789043 |
+| Miinhaj | Malappuram     | 2000 |  4323338 |  732754 |
+| karthik | Perinthalmanna | 2000 |  8432323 | 2321334 |
+| Vyshnav | Palakkad       | 2001 |   947356 |  253348 |
+| Aswin   | bangalore      | NULL | 73382632 |    NULL |
++---------+----------------+------+----------+---------+
+6 rows in set (0.00 sec)
+
+
+2.Rollback
+----------
+
+
+mysql> DELETE FROM EMPLOYEE WHERE name="Aswin";
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from EMPLOYEE;
++---------+----------------+------+----------+---------+
+| name    | cty            | DOB  | adhar_no | SSN     |
++---------+----------------+------+----------+---------+
+| Nihal   | Kozhikode      | 2001 |  4567890 |  987654 |
+| Mishab  | Kozhikode      | 2001 |   678908 |  789043 |
+| Miinhaj | Malappuram     | 2000 |  4323338 |  732754 |
+| karthik | Perinthalmanna | 2000 |  8432323 | 2321334 |
+| Vyshnav | Palakkad       | 2001 |   947356 |  253348 |
++---------+----------------+------+----------+---------+
+5 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from EMPLOYEE;
++---------+----------------+------+----------+---------+
+| name    | cty            | DOB  | adhar_no | SSN     |
++---------+----------------+------+----------+---------+
+| Nihal   | Kozhikode      | 2001 |  4567890 |  987654 |
+| Mishab  | Kozhikode      | 2001 |   678908 |  789043 |
+| Miinhaj | Malappuram     | 2000 |  4323338 |  732754 |
+| karthik | Perinthalmanna | 2000 |  8432323 | 2321334 |
+| Vyshnav | Palakkad       | 2001 |   947356 |  253348 |
+| Aswin   | bangalore      | NULL | 73382632 |    NULL |
++---------+----------------+------+----------+---------+
+6 rows in set (0.00 sec)
+
+
+
+
+3.Savepoint
+-----------
+
+
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> INSERT INTO EMPLOYEE VALUES('Akshay','trivandram',2004,67890987,835237);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s1;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES('hari','palakkad',2003,87643793,65633);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from EMPLOYEE;
++---------+----------------+------+----------+---------+
+| name    | cty            | DOB  | adhar_no | SSN     |
++---------+----------------+------+----------+---------+
+| Nihal   | Kozhikode      | 2001 |  4567890 |  987654 |
+| Mishab  | Kozhikode      | 2001 |   678908 |  789043 |
+| Miinhaj | Malappuram     | 2000 |  4323338 |  732754 |
+| karthik | Perinthalmanna | 2000 |  8432323 | 2321334 |
+| Vyshnav | Palakkad       | 2001 |   947356 |  253348 |
+| Aswin   | bangalore      | NULL | 73382632 |    NULL |
+| Akshay  | trivandram     | 2004 | 67890987 |  835237 |
+| hari    | palakkad       | 2003 | 87643793 |   65633 |
++---------+----------------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> rollback to s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from EMPLOYEE;
++---------+----------------+------+----------+---------+
+| name    | cty            | DOB  | adhar_no | SSN     |
++---------+----------------+------+----------+---------+
+| Nihal   | Kozhikode      | 2001 |  4567890 |  987654 |
+| Mishab  | Kozhikode      | 2001 |   678908 |  789043 |
+| Miinhaj | Malappuram     | 2000 |  4323338 |  732754 |
+| karthik | Perinthalmanna | 2000 |  8432323 | 2321334 |
+| Vyshnav | Palakkad       | 2001 |   947356 |  253348 |
+| Aswin   | bangalore      | NULL | 73382632 |    NULL |
+| Akshay  | trivandram     | 2004 | 67890987 |  835237 |
++---------+----------------+------+----------+---------+
+7 rows in set (0.00 sec)
+
+
+
+b) DCL COMMAND
+          Create two users user1, user2
+1.GRANT
+    ->Give insert and select privilege to user 1 on customer table in the invoice database.
+    ->Give update and delete privilege to user 2 on all tables in the invoice database.
+--------------------------------------------------------------------------------------------
+
+
+
+
+mysql> CREATE USER USER1@'localhost' IDENTIFIED BY 'pass1';
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> CREATE USER USER2@'localhost' IDENTIFIED BY 'pass2';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT user FROM mysql.user;
++------------------+
+| user             |
++------------------+
+| NIHAL            |
+| USER1            |
+| USER2            |
+| abc              |
+| debian-sys-maint |
+| mysql.session    |
+| mysql.sys        |
+| root             |
+| user1            |
+| userone          |
+| usertwo          |
++------------------+
+11 rows in set (0.00 sec)
+
+
+1)GRANT
+-------
+
+
+
+mysql> GRANT INSERT,SELECT ON Customer TO USER1@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+mysql> SHOW GRANTS FOR USER1@'localhost';
++---------------------------------------------------------------------+
+| Grants for USER1@localhost                                          |
++---------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'USER1'@'localhost'                           |
+| GRANT SELECT, INSERT ON `INVOICE`.`Customer` TO 'USER1'@'localhost' |
++---------------------------------------------------------------------+
+
+
+
+
+
+
+
+
+mysql> GRANT UPDATE,DELETE ON INVOICE.* TO USER2@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> GRANT UPDATE,DELETE ON INVOICE.* TO USER2@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>  SHOW GRANTS FOR USER2@'localhost';
++------------------------------------------------------------+
+| Grants for USER2@localhost                                 |
++------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'USER2'@'localhost'                  |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO 'USER2'@'localhost' |
++------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
+2.REVOKE
+    ->Remove delete privilege of user 2.
+-----------------------------------------
+
+
+
+
+mysql> REVOKE DELETE ON INVOICE.* FROM USER2@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+mysql> REVOKE DELETE ON INVOICE.* FROM USER2@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SHOW GRANTS FOR USER2@'localhost';
++----------------------------------------------------+
+| Grants for USER2@localhost                         |
++----------------------------------------------------+
+| GRANT USAGE ON *.* TO 'USER2'@'localhost'          |
+| GRANT UPDATE ON `INVOICE`.* TO 'USER2'@'localhost' |
++----------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
+
