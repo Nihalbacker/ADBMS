@@ -1,0 +1,328 @@
+1.List all customer details.
+----------------------------
+
+
+mysql> SELECT * FROM Customer;
++-----+---------+-------------------------+-----------+-----------+
+| id  | name    | address                 | city      | ph_no     |
++-----+---------+-------------------------+-----------+-----------+
+| 100 | Nihal   | Poonooor,Calicut        | Calicut   | 984564218 |
+| 101 | Mishab  | Balussery,Calicut       | Kozhikode | 952734974 |
+| 102 | Niya    | Thamarassery,Calicut    | Kozhikode | 985204567 |
+| 104 | Nadha   | Ulliyeri,Calicut        | Kozhikode | 456789999 |
+| 105 | Karthik | Perinthalmanna,Palakkad | Palakkad  | 789665445 |
++-----+---------+-------------------------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+2.List pname, price of all products.
+------------------------------------
+
+
+mysql>  SELECT pname,price FROM Product;
++----------------------+-------+
+| pname                | price |
++----------------------+-------+
+| LEXI PEN             |     5 |
+| PEPSI 250            |    31 |
+| BISCUIT 250          |    51 |
+| PROCESSED FOOD S.P   |   143 |
+| DINNRSET 10PC        |  2039 |
+| TOY 5Y               |   264 |
+| CUCUMBER 1KG         |    31 |
+| CARROT 1KG           |   102 |
+| NIRAPARA MATTA RICE  |    42 |
+| COLGATE T.P          |    51 |
+| PEPSI 1L             |    92 |
+| 50-50 BISCUIT        |    31 |
+| DISPOSABLE MASK PACK |   102 |
++----------------------+-------+
+13 rows in set (0.00 sec)
+
+
+
+
+3.List all invoice items, avoid duplicates.
+-------------------------------------------
+
+
+mysql> SELECT DISTINCT Inv_id FROM Invoice_item;
++---------+
+| Inv_id  |
++---------+
+|   13847 |
+|   14092 |
+|  234562 |
+|  456789 |
+|  634567 |
+|  874563 |
+| 4379782 |
+| 4567898 |
+| 8457382 |
+| 9352624 |
++---------+
+10 rows in set (0.01 sec)
+
+
+
+4.List product price between 50rs and 150rs
+--------------------------------------------
+
+
+
+mysql> SELECT * FROM Product WHERE price BETWEEN 50 AND 150;
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 152 | BISCUIT 250          |    51 |
+| 153 | PROCESSED FOOD S.P   |   143 |
+| 223 | CARROT 1KG           |   102 |
+| 230 | COLGATE T.P          |    51 |
+| 243 | PEPSI 1L             |    92 |
+| 256 | DISPOSABLE MASK PACK |   102 |
++-----+----------------------+-------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+5.List the customer details who lives in ‘Kozhikode’,’Palakkad’
+----------------------------------------------------
+
+
+
+
+mysql>  SELECT * FROM Customer WHERE city="Kozhikode" OR city="Palakkad";
++-----+---------+-------------------------+-----------+-----------+
+| id  | name    | address                 | city      | ph_no     |
++-----+---------+-------------------------+-----------+-----------+
+| 101 | Mishab  | Balussery,Calicut       | Kozhikode | 952734974 |
+| 102 | Niya    | Thamarassery,Calicut    | Kozhikode | 985204567 |
+| 104 | Nadha   | Ulliyeri,Calicut        | Kozhikode | 456789999 |
+| 105 | Karthik | Perinthalmanna,Palakkad | Palakkad  | 789665445 |
++-----+---------+-------------------------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+
+
+6.List the invoice details from 1st January 2023 to 15th February 2023
+-----------------------------------------------------------------------
+
+
+
+mysql> SELECT * FROM Invoice_master WHERE Inv_date BETWEEN '2023-01-01' AND '2023-02-15';
++---------+---------+------------+
+| inv_id  | cust_id | inv_date   |
++---------+---------+------------+
+|  202235 |     104 | 2023-02-02 |
+| 4379782 |     102 | 2023-01-22 |
+| 9352624 |     102 | 2023-01-09 |
++---------+---------+------------+
+3 rows in set (0.00 sec)
+
+
+
+
+7.List the customer details who not live in ‘Palakkad’
+------------------------------------------------------
+
+
+
+mysql> SELECT * FROM Customer WHERE city!='Palakkad';
++-----+--------+----------------------+-----------+-----------+
+| id  | name   | address              | city      | ph_no     |
++-----+--------+----------------------+-----------+-----------+
+| 100 | Nihal  | Poonooor,Calicut     | Calicut   | 984564218 |
+| 101 | Mishab | Balussery,Calicut    | Kozhikode | 952734974 |
+| 102 | Niya   | Thamarassery,Calicut | Kozhikode | 985204567 |
+| 104 | Nadha  | Ulliyeri,Calicut     | Kozhikode | 456789999 |
++-----+--------+----------------------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+8.List the customers who have no phone number.
+----------------------------------------------
+
+
+select * from Customer;
++-----+---------+-------------------------+------------+-----------+
+| id  | name    | address                 | city       | ph_no     |
++-----+---------+-------------------------+------------+-----------+
+| 100 | Nihal   | Poonooor,Calicut        | Calicut    | 984564218 |
+| 101 | Mishab  | Balussery,Calicut       | Kozhikode  | 952734974 |
+| 102 | Niya    | Thamarassery,Calicut    | Kozhikode  | 985204567 |
+| 104 | Nadha   | Ulliyeri,Calicut        | Kozhikode  | 456789999 |
+| 105 | Karthik | Perinthalmanna,Palakkad | Palakkad   | 789665445 |
+| 106 | Hiba    | Manjeri,Malappuram      | Malappuram |      NULL |
+| 107 | Aysha   | Ullyeri,Kozhikode       | Kozhikode  |      NULL |
++-----+---------+-------------------------+------------+-----------+
+
+
+
+mysql> SELECT * FROM Customer WHERE ph_no IS NULL;
++-----+-------+--------------------+------------+-------+
+| id  | name  | address            | city       | ph_no |
++-----+-------+--------------------+------------+-------+
+| 106 | Hiba  | Manjeri,Malappuram | Malappuram |  NULL |
+| 107 | Aysha | Ullyeri,Kozhikode  | Kozhikode  |  NULL |
++-----+-------+--------------------+------------+-------+
+2 rows in set (0.00 sec)
+
+
+
+9.Display customer names in descending order.
+---------------------------------------------
+
+
+
+
+
+mysql> SELECT name FROM Customer ORDER BY name DESC;
++---------+
+| name    |
++---------+
+| Niya    |
+| Nihal   |
+| Nadha   |
+| Mishab  |
+| Karthik |
+| Hiba    |
+| Aysha   |
++---------+
+7 rows in set (0.00 sec)
+
+
+
+
+
+10. Display the customer details sorted in ascending by city and descending by names.
+-----------------------------------------------------------------------
+
+
+
+
+
+mysql> SELECT * FROM Customer ORDER BY city ASC,name DESC;
++-----+---------+-------------------------+------------+-----------+
+| id  | name    | address                 | city       | ph_no     |
++-----+---------+-------------------------+------------+-----------+
+| 100 | Nihal   | Poonooor,Calicut        | Calicut    | 984564218 |
+| 102 | Niya    | Thamarassery,Calicut    | Kozhikode  | 985204567 |
+| 104 | Nadha   | Ulliyeri,Calicut        | Kozhikode  | 456789999 |
+| 101 | Mishab  | Balussery,Calicut       | Kozhikode  | 952734974 |
+| 107 | Aysha   | Ullyeri,Kozhikode       | Kozhikode  |      NULL |
+| 106 | Hiba    | Manjeri,Malappuram      | Malappuram |      NULL |
+| 105 | Karthik | Perinthalmanna,Palakkad | Palakkad   | 789665445 |
++-----+---------+-------------------------+------------+-----------+
+7 rows in set (0.00 sec)
+
+
+
+11. Find the customer names start with ‘A’.
+-------------------------------------------
+
+
+
+mysql> SELECT name FROM Customer WHERE name LIKE 'A%';
++-------+
+| name  |
++-------+
+| Aysha |
++-------+
+1 row in set (0.00 sec)
+
+
+
+12. Find the customer names who have ‘e’ or ‘a’ in them.
+--------------------------------------------------------
+
+
+mysql> SELECT name FROM Customer WHERE name LIKE '%a%' OR name LIKE '%e%';
++---------+
+| name    |
++---------+
+| Nihal   |
+| Mishab  |
+| Niya    |
+| Nadha   |
+| Karthik |
+| Hiba    |
+| Aysha   |
++---------+
+7 rows in set (0.00 sec)
+
+
+
+13. Find the customer names who have at least 3 characters.
+-----------------------------------------------------------
+
+
+mysql> SELECT name FROM Customer WHERE name LIKE '___%';
++---------+
+| name    |
++---------+
+| Nihal   |
+| Mishab  |
+| Niya    |
+| Nadha   |
+| Karthik |
+| Hiba    |
+| Aysha   |
++---------+
+7 rows in set (0.00 sec)
+
+
+
+14. List the names of customers their names have ‘r’ in second position.
+------------------------------------------------------------------
+
+
+mysql> SELECT * FROM Customer;
++-----+---------+-------------------------+------------+-----------+
+| id  | name    | address                 | city       | ph_no     |
++-----+---------+-------------------------+------------+-----------+
+| 100 | Nihal   | Poonooor,Calicut        | Calicut    | 984564218 |
+| 101 | Mishab  | Balussery,Calicut       | Kozhikode  | 952734974 |
+| 102 | Niya    | Thamarassery,Calicut    | Kozhikode  | 985204567 |
+| 104 | Nadha   | Ulliyeri,Calicut        | Kozhikode  | 456789999 |
+| 105 | Karthik | Perinthalmanna,Palakkad | Palakkad   | 789665445 |
+| 106 | Hiba    | Manjeri,Malappuram      | Malappuram |      NULL |
+| 107 | Aysha   | Ullyeri,Kozhikode       | Kozhikode  |      NULL |
+| 108 | Arman   | Karanthur,Kozhikode     | Kozhikode  |  43567890 |
++-----+---------+-------------------------+------------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT name FROM Customer WHERE name LIKE '_r%';
++-------+
+| name  |
++-------+
+| Arman |
++-------+
+1 row in set (0.00 sec)
+
+
+
+15. Find the customer names start with ‘a’ and are at least 3 characters in length
+-------------------------------------------------------------------
+
+
+
+mysql> SELECT name FROM Customer WHERE name LIKE 'A__%';
++-------+
+| name  |
++-------+
+| Aysha |
+| Arman |
++-------+
+2 rows in set (0.00 sec)
+
+
+
+
