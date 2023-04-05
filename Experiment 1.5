@@ -1,0 +1,233 @@
+
+1.5  ACCESSING DATABASE: (SUBQUERY)
+
+
+
+
+mysql> select * from Customer;
++-----+---------+-------------------------+-----------+-----------+
+| id  | name    | address                 | city      | ph_no     |
++-----+---------+-------------------------+-----------+-----------+
+| 100 | Nihal   | Poonooor,Calicut        | Calicut   | 984564218 |
+| 101 | Mishab  | Balussery,Calicut       | Kozhikode | 952734974 |
+| 102 | Niya    | Thamarassery,Calicut    | Kozhikode | 985204567 |
+| 104 | Nadha   | Ulliyeri,Calicut        | Kozhikode | 456789999 |
+| 105 | Karthik | Perinthalmanna,Palakkad | Palakkad  | 789665445 |
++-----+---------+-------------------------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+mysql> select * from Product;
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 150 | LEXI PEN             |     5 |
+| 151 | PEPSI 250            |    31 |
+| 152 | BISCUIT 250          |    51 |
+| 153 | PROCESSED FOOD S.P   |   143 |
+| 210 | DINNRSET 10PC        |  2039 |
+| 213 | TOY 5Y               |   264 |
+| 216 | CUCUMBER 1KG         |    31 |
+| 223 | CARROT 1KG           |   102 |
+| 226 | NIRAPARA MATTA RICE  |    42 |
+| 230 | COLGATE T.P          |    51 |
+| 243 | PEPSI 1L             |    92 |
+| 255 | 50-50 BISCUIT        |    31 |
+| 256 | DISPOSABLE MASK PACK |   102 |
++-----+----------------------+-------+
+13 rows in set (0.00 sec)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+mysql> select * from Invoice_master;
++---------+---------+------------+
+| inv_id  | cust_id | inv_date   |
++---------+---------+------------+
+|   13847 |     100 | 2023-02-21 |
+|   14092 |     100 | 2023-03-23 |
+|   14567 |     100 | 2023-03-10 |
+|   16789 |     100 | 2022-01-24 |
+|  202235 |     104 | 2023-02-02 |
+|  234562 |     101 | 2023-03-16 |
+|  456789 |     101 | 2021-04-27 |
+|  634567 |     102 | 2022-02-11 |
+|  834567 |     102 | 2023-03-20 |
+|  874563 |     104 | 2022-10-23 |
+| 4379782 |     102 | 2023-01-22 |
+| 4567898 |     104 | 2022-11-19 |
+| 8457382 |     104 | 2022-12-23 |
+| 9352624 |     102 | 2023-01-09 |
++---------+---------+------------+
+14 rows in set (0.00 sec)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+mysql> select * from Invoice_item;
++---------+------+----------+
+| inv_id  | pid  | Quantity |
++---------+------+----------+
+|   13847 |  216 |       10 |
+|   14092 |  230 |        2 |
+|  234562 |  255 |        3 |
+| 4379782 |  243 |        2 |
+| 4379782 |  152 |        3 |
+| 9352624 |  213 |        2 |
+| 8457382 |  210 |        2 |
+|  634567 |  256 |       15 |
+| 9352624 |  226 |        4 |
+| 4567898 |  223 |        3 |
+|  874563 |  152 |        3 |
+|  874563 |  213 |        3 |
+|  456789 |  213 |        3 |
++---------+------+----------+
+13 rows in set (0.00 sec)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1.List the customer names of invoice date 2nd February 2023.
+------------------------------------------------------------
+
+
+mysql> SELECT name FROM Customer WHERE id IN(SELECT cust_id FROM Invoice_master WHERE inv_date='2023-02-02');
++-------+
+| name  |
++-------+
+| Nadha |
++-------+
+1 row in set (0.03 sec)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+2.List the product name and price of each invoice item.
+-------------------------------------------------------
+
+
+mysql> SELECT pname,price FROM Product WHERE pid IN(SELECT pid FROM Invoice_item);
++----------------------+-------+
+| pname                | price |
++----------------------+-------+
+| BISCUIT 250          |    51 |
+| DINNRSET 10PC        |  2039 |
+| TOY 5Y               |   264 |
+| CUCUMBER 1KG         |    31 |
+| CARROT 1KG           |   102 |
+| NIRAPARA MATTA RICE  |    42 |
+| COLGATE T.P          |    51 |
+| PEPSI 1L             |    92 |
+| 50-50 BISCUIT        |    31 |
+| DISPOSABLE MASK PACK |   102 |
++----------------------+-------+
+10 rows in set (0.01 sec)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+3.List the product names, only include their purchased quantity more than 2.
+---------------------------------------------------------------------
+
+
+mysql> SELECT pname FROM Product WHERE pid IN(SELECT pid FROM Invoice_item WHERE Quantity>2);
++----------------------+
+| pname                |
++----------------------+
+| BISCUIT 250          |
+| TOY 5Y               |
+| CUCUMBER 1KG         |
+| CARROT 1KG           |
+| NIRAPARA MATTA RICE  |
+| 50-50 BISCUIT        |
+| DISPOSABLE MASK PACK |
++----------------------+
+7 rows in set (0.01 sec)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+4.Find the product that has no sale.
+------------------------------------
+
+
+
+mysql> SELECT * FROM Product WHERE pid NOT IN(SELECT pid FROM Invoice_item);
++-----+--------------------+-------+
+| pid | pname              | price |
++-----+--------------------+-------+
+| 150 | LEXI PEN           |     5 |
+| 151 | PEPSI 250          |    31 |
+| 153 | PROCESSED FOOD S.P |   143 |
++-----+--------------------+-------+
+3 rows in set (0.00 sec)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+5.List the customer names who purchased the items ‘COLGATE’ and ‘50-50 BISCUIT’.
+------------------------------------------------------------------------
+
+
+mysql> SELECT name FROM Customer WHERE id IN (SELECT id FROM Invoice_master WHERE inv_id IN (SELECT inv_id FROM Invoice_item WHERE pid IN(SELECT pid FROM Product WHERE pname = "COLGATE T.P" or pname ="50-50 BISCUIT")));
++---------+
+| name    |
++---------+
+| Nihal   |
+| Mishab  |
+| Niya    |
+| Nadha   |
+| Karthik |
++---------+
+5 rows in set (0.00 sec)
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+6.Display the purchased product details of the customer ’Nihal’.
+---------------------------------------------------------------
+
+
+
+
+mysql> SELECT * FROM Product WHERE pid IN(SELECT pid FROM Invoice_item WHERE inv_id IN(SELECT inv_id FROM Invoice_master WHERE cust_id IN(SELECT id FROM Customer WHERE name='Nihal')));
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+| 216 | CUCUMBER 1KG |    31 |
+| 230 | COLGATE T.P  |    51 |
++-----+--------------+-------+
+2 rows in set (0.00 sec)
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+7.List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
+--------------------------------------------------------------------------------------------------------------------------
+
+
+mysql> SELECT DISTINCT name FROM Customer WHERE id IN (SELECT cust_id FROM Invoice_master WHERE inv_id IN (SELECT inv_id FROM Invoice_item GROUP BY inv_id HAVING COUNT(*)>=2));
++-------+
+| name  |
++-------+
+| Niya  |
+| Nadha |
++-------+
+2 rows in set (0.00 sec)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
