@@ -117,7 +117,7 @@ mysql> SELECT * FROM Customer WHERE ph_no IS NULL AND city="Calicut";
 -------------------------------------------------------------------------------------
 
 
-mysql> SELECT pname FROM Product WHERE pid IN(SELECT pid FROM Invoice_item);
+mysql> SELECT pname FROM Product WHERE pid IN(SELECT pid FROM Invoice_item); //WRONG QUERY
 +----------------------+
 | pname                |
 +----------------------+
@@ -134,3 +134,4 @@ mysql> SELECT pname FROM Product WHERE pid IN(SELECT pid FROM Invoice_item);
 +----------------------+
 10 rows in set (0.00 sec)
 
+//RESUBMIT
