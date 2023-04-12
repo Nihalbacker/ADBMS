@@ -1,0 +1,95 @@
+1.List product name, price except pen on price order.
+------------------------------------------------------
+
+
+
+mysql> SELECT pname,price FROM Product WHERE pname!='LEXI PEN' ORDER BY price ASC;
++----------------------+-------+
+| pname                | price |
++----------------------+-------+
+| PEPSI 250            |    31 |
+| CUCUMBER 1KG         |    31 |
+| 50-50 BISCUIT        |    31 |
+| NIRAPARA MATTA RICE  |    42 |
+| BISCUIT 250          |    51 |
+| COLGATE T.P          |    51 |
+| PEPSI 1L             |    92 |
+| CARROT 1KG           |   102 |
+| DISPOSABLE MASK PACK |   102 |
+| PROCESSED FOOD S.P   |   143 |
+| TOY 5Y               |   264 |
+| DINNRSET 10PC        |  2039 |
++----------------------+-------+
+12 rows in set (0.00 sec)
+
+
+
+2.Find minimum, maximum and average price of products.
+------------------------------------------------------
+
+
+
+mysql> SELECT MIN(price),MAX(price),AVG(price) FROM Product;
++------------+------------+------------+
+| MIN(price) | MAX(price) | AVG(price) |
++------------+------------+------------+
+|          5 |       2039 |   229.5385 |
++------------+------------+------------+
+1 row in set (0.02 sec)
+
+
+
+
+3.Find number of customers in each city.
+-----------------------------------------
+
+
+mysql> SELECT COUNT(*),city FROM Customer GROUP BY city;
++----------+-----------+
+| COUNT(*) | city      |
++----------+-----------+
+|        1 | Calicut   |
+|        3 | Kozhikode |
+|        1 | Palakkad  |
++----------+-----------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+4.Find number of customers in each city, only include city with more than 2 customers.
+----------------------------------------------------------------------
+
+
+mysql> SELECT COUNT(*),city FROM Customer GROUP BY city HAVING COUNT(*)>2;
++----------+-----------+
+| COUNT(*) | city      |
++----------+-----------+
+|        3 | Kozhikode |
++----------+-----------+
+1 row in set (0.00 sec)
+
+
+
+
+
+5.Show data as displayed ‘who, where’ Eg: ‘customer1 lives in Kochi’.
+-------------------------------------------------------------------
+
+
+
+mysql> SELECT CONCAT(name, " LIVES IN ", city) AS CUST_INFO FROM Customer;
++---------------------------+
+| CUST_INFO                 |
++---------------------------+
+| Nihal LIVES IN Calicut    |
+| Mishab LIVES IN Kozhikode |
+| Niya LIVES IN Kozhikode   |
+| Nadha LIVES IN Kozhikode  |
+| Karthik LIVES IN Palakkad |
++---------------------------+
+5 rows in set (0.01 sec)
+
+
