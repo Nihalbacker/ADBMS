@@ -1,0 +1,218 @@
+mysql> select * from Customer;
++-----+---------+-------------------------+-----------+-----------+
+| id  | name    | address                 | city      | ph_no     |
++-----+---------+-------------------------+-----------+-----------+
+| 100 | Nihal   | Poonooor,Calicut        | Calicut   | 984564218 |
+| 101 | Mishab  | Balussery,Calicut       | Kozhikode | 952734974 |
+| 102 | Niya    | Thamarassery,Calicut    | Kozhikode | 985204567 |
+| 104 | Nadha   | Ulliyeri,Calicut        | Kozhikode | 456789999 |
+| 105 | Karthik | Perinthalmanna,Palakkad | Palakkad  | 789665445 |
++-----+---------+-------------------------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> select * from Product;
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 150 | LEXI PEN             |     5 |
+| 151 | PEPSI 250            |    31 |
+| 152 | BISCUIT 250          |    51 |
+| 153 | PROCESSED FOOD S.P   |   143 |
+| 210 | DINNRSET 10PC        |  2039 |
+| 213 | TOY 5Y               |   264 |
+| 216 | CUCUMBER 1KG         |    31 |
+| 223 | CARROT 1KG           |   102 |
+| 226 | NIRAPARA MATTA RICE  |    42 |
+| 230 | COLGATE T.P          |    51 |
+| 243 | PEPSI 1L             |    92 |
+| 255 | 50-50 BISCUIT        |    31 |
+| 256 | DISPOSABLE MASK PACK |   102 |
++-----+----------------------+-------+
+13 rows in set (0.00 sec)
+
+
+
+mysql> select * from Invoice_master;
++---------+---------+------------+
+| inv_id  | cust_id | inv_date   |
++---------+---------+------------+
+|   13847 |     100 | 2023-02-21 |
+|   14092 |     100 | 2023-03-23 |
+|   14567 |     100 | 2023-03-10 |
+|   16789 |     100 | 2022-01-24 |
+|  202235 |     104 | 2023-02-02 |
+|  234562 |     101 | 2023-03-16 |
+|  456789 |     101 | 2021-04-27 |
+|  634567 |     102 | 2022-02-11 |
+|  834567 |     102 | 2023-03-20 |
+|  874563 |     104 | 2022-10-23 |
+| 4379782 |     102 | 2023-01-22 |
+| 4567898 |     104 | 2022-11-19 |
+| 8457382 |     104 | 2022-12-23 |
+| 9352624 |     102 | 2023-01-09 |
++---------+---------+------------+
+14 rows in set (0.00 sec)
+
+
+
+mysql> select * from Invoice_item;
++---------+------+----------+
+| inv_id  | pid  | Quantity |
++---------+------+----------+
+|   13847 |  216 |       10 |
+|   14092 |  230 |        2 |
+|  234562 |  255 |        3 |
+| 4379782 |  243 |        2 |
+| 4379782 |  152 |        3 |
+| 9352624 |  213 |        2 |
+| 8457382 |  210 |        2 |
+|  634567 |  256 |       15 |
+| 9352624 |  226 |        4 |
+| 4567898 |  223 |        3 |
+|  874563 |  152 |        3 |
+|  874563 |  213 |        3 |
+|  456789 |  213 |        3 |
+|   13847 |  230 |        5 |
+|   13847 |  255 |        1 |
+|   13847 |  213 |       20 |
+|  202235 |  213 |       10 |
+|  202235 |  152 |        6 |
+|  202235 |  210 |        8 |
+| 4379782 |  210 |        8 |
+| 4379782 |  213 |        9 |
+| 4379782 |  223 |        3 |
+|  234562 |  255 |        5 |
+|  234562 |  152 |        9 |
+|  234562 |  230 |        4 |
++---------+------+----------+
+25 rows in set (0.00 sec)
+
+
+
+1.List the product name and quantity of invoice items.
+-------------------------------------------------------
+
+
+mysql> SELECT Product.pname,Invoice_item.Quantity FROM Product INNER JOIN Invoice_item ON Product.pid=Invoice_item.pid;
++----------------------+----------+
+| pname                | Quantity |
++----------------------+----------+
+| CUCUMBER 1KG         |       10 |
+| COLGATE T.P          |        2 |
+| 50-50 BISCUIT        |        3 |
+| PEPSI 1L             |        2 |
+| BISCUIT 250          |        3 |
+| TOY 5Y               |        2 |
+| DINNRSET 10PC        |        2 |
+| DISPOSABLE MASK PACK |       15 |
+| NIRAPARA MATTA RICE  |        4 |
+| CARROT 1KG           |        3 |
+| BISCUIT 250          |        3 |
+| TOY 5Y               |        3 |
+| TOY 5Y               |        3 |
+| COLGATE T.P          |        5 |
+| 50-50 BISCUIT        |        1 |
+| TOY 5Y               |       20 |
+| TOY 5Y               |       10 |
+| BISCUIT 250          |        6 |
+| DINNRSET 10PC        |        8 |
+| DINNRSET 10PC        |        8 |
+| TOY 5Y               |        9 |
+| CARROT 1KG           |        3 |
+| 50-50 BISCUIT        |        5 |
+| BISCUIT 250          |        9 |
+| COLGATE T.P          |        4 |
++----------------------+----------+
+25 rows in set (0.00 sec)
+
+
+
+
+2.Display invoice details of the transaction dated ’22-01-2023’.
+-------------------------------------------------------------
+
+
+mysql> SELECT Invoice_master.inv_date,Invoice_master.cust_id,Customer.name,Invoice_item.pid,Product.pname,Invoice_item.Quantity FROM Invoice_master INNER JOIN Invoice_item ON Invoice_master.inv_id=Invoice_item.inv_id INNER JOIN Product ON Product.pid=Invoice_item.pid INNER JOIN Customer ON Customer.id=Invoice_master.cust_id WHERE inv_date='2023-01-22';
++------------+---------+------+------+---------------+----------+
+| inv_date   | cust_id | name | pid  | pname         | Quantity |
++------------+---------+------+------+---------------+----------+
+| 2023-01-22 |     102 | Niya |  243 | PEPSI 1L      |        2 |
+| 2023-01-22 |     102 | Niya |  152 | BISCUIT 250   |        3 |
+| 2023-01-22 |     102 | Niya |  210 | DINNRSET 10PC |        8 |
+| 2023-01-22 |     102 | Niya |  213 | TOY 5Y        |        9 |
+| 2023-01-22 |     102 | Niya |  223 | CARROT 1KG    |        3 |
++------------+---------+------+------+---------------+----------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+3.Display the customer name, product name, invoice date of purchased item ‘TOY’.
+-------------------------------------------------------------------------
+
+
+mysql> SELECT Customer.name,Product.pname,Invoice_master.inv_date FROM Customer INNER JOIN Invoice_master ON Customer.id=Invoice_master.cust_id INNER JOIN Invoice_item ON Invoice_master.inv_id=Invoice_item.inv_id INNER JOIN Product ON Invoice_item.pid=Product.pid WHERE pname="TOY 5Y";
++--------+--------+------------+
+| name   | pname  | inv_date   |
++--------+--------+------------+
+| Niya   | TOY 5Y | 2023-01-09 |
+| Nadha  | TOY 5Y | 2022-10-23 |
+| Mishab | TOY 5Y | 2021-04-27 |
+| Nihal  | TOY 5Y | 2023-02-21 |
+| Nadha  | TOY 5Y | 2023-02-02 |
+| Niya   | TOY 5Y | 2023-01-22 |
++--------+--------+------------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+4.Display all customer details and invoice details must include customer has not purchased items.
+--------------------------------------------------------------------------------
+
+
+
+mysql> SELECT name,Invoice_master.Inv_id,Invoice_master.inv_date,Product.pname FROM Customer LEFT JOIN Invoice_master ON
+    -> Customer.id=Invoice_master.cust_id LEFT JOIN Invoice_item ON Invoice_master.inv_id=Invoice_item.inv_id LEFT JOIN Product ON
+    -> Product.pid=Invoice_item.pid;
++---------+---------+------------+----------------------+
+| name    | Inv_id  | inv_date   | pname                |
++---------+---------+------------+----------------------+
+| Nihal   |   13847 | 2023-02-21 | CUCUMBER 1KG         |
+| Nihal   |   13847 | 2023-02-21 | COLGATE T.P          |
+| Nihal   |   13847 | 2023-02-21 | 50-50 BISCUIT        |
+| Nihal   |   13847 | 2023-02-21 | TOY 5Y               |
+| Nihal   |   14092 | 2023-03-23 | COLGATE T.P          |
+| Nihal   |   14567 | 2023-03-10 | NULL                 |
+| Nihal   |   16789 | 2022-01-24 | NULL                 |
+| Mishab  |  234562 | 2023-03-16 | 50-50 BISCUIT        |
+| Mishab  |  234562 | 2023-03-16 | 50-50 BISCUIT        |
+| Mishab  |  234562 | 2023-03-16 | BISCUIT 250          |
+| Mishab  |  234562 | 2023-03-16 | COLGATE T.P          |
+| Mishab  |  456789 | 2021-04-27 | TOY 5Y               |
+| Niya    |  634567 | 2022-02-11 | DISPOSABLE MASK PACK |
+| Niya    |  834567 | 2023-03-20 | NULL                 |
+| Niya    | 4379782 | 2023-01-22 | PEPSI 1L             |
+| Niya    | 4379782 | 2023-01-22 | BISCUIT 250          |
+| Niya    | 4379782 | 2023-01-22 | DINNRSET 10PC        |
+| Niya    | 4379782 | 2023-01-22 | TOY 5Y               |
+| Niya    | 4379782 | 2023-01-22 | CARROT 1KG           |
+| Niya    | 9352624 | 2023-01-09 | TOY 5Y               |
+| Niya    | 9352624 | 2023-01-09 | NIRAPARA MATTA RICE  |
+| Nadha   |  202235 | 2023-02-02 | TOY 5Y               |
+| Nadha   |  202235 | 2023-02-02 | BISCUIT 250          |
+| Nadha   |  202235 | 2023-02-02 | DINNRSET 10PC        |
+| Nadha   |  874563 | 2022-10-23 | BISCUIT 250          |
+| Nadha   |  874563 | 2022-10-23 | TOY 5Y               |
+| Nadha   | 4567898 | 2022-11-19 | CARROT 1KG           |
+| Nadha   | 8457382 | 2022-12-23 | DINNRSET 10PC        |
+| Karthik |    NULL | NULL       | NULL                 |
++---------+---------+------------+----------------------+
+29 rows in set (0.00 sec)
+
+
+
