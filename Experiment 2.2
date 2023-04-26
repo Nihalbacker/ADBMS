@@ -1,0 +1,28 @@
+
+
+1. Create a function to calculate price_range(low, medium, high) of each product. If price<=5 indicate as low, upto 50 indicate as medium, and above as high.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+mysql> create function pricerng(Price int) returns varchar(20) deterministic begin declare pricerng varchar(20); if Price<=5 then set pricerng='low'; elseif(Price>5 and Price<=50) then set pricerng='medium'; elseif Price>50 then set pricerng='high'; end if; return(pricerng); end//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select pid,pname,Price,pricerng(Price) from Product;
+    -> //
++-----+----------------------+-------+-----------------+
+| pid | pname                | Price | pricerng(Price) |
++-----+----------------------+-------+-----------------+
+| 150 | LEXI PEN             |    10 | medium          |
+| 151 | PEPSI 250            |    36 | medium          |
+| 152 | BISCUIT 250          |    56 | high            |
+| 153 | PROCESSED FOOD S.P   |   148 | high            |
+| 210 | DINNRSET 10PC        |  2044 | high            |
+| 213 | TOY 5Y               |   269 | high            |
+| 216 | CUCUMBER 1KG         |    36 | medium          |
+| 223 | CARROT 1KG           |   107 | high            |
+| 226 | NIRAPARA MATTA RICE  |    47 | medium          |
+| 230 | COLGATE T.P          |    56 | high            |
+| 243 | PEPSI 1L             |    97 | high            |
+| 255 | 50-50 BISCUIT        |    36 | medium          |
+| 256 | DISPOSABLE MASK PACK |   107 | high            |
++-----+----------------------+-------+-----------------+
+13 rows in set (0.00 sec)
