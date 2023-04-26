@@ -1,0 +1,146 @@
+
+1.Create a procedure to display all tables in the invoice database.
+--------------------------------------------------------------------
+
+
+mysql> create procedure invoices() begin select * from Customer; select * from Product; select * from Invoice_master; select * from Invoice_item; end//
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> call invoices();
+    -> //
++-----+---------+-------------------------+------------+-----------+
+| id  | name    | address                 | city       | ph_no     |
++-----+---------+-------------------------+------------+-----------+
+| 100 | Nihal   | Poonooor,Calicut        | Calicut    | 984564218 |
+| 101 | Mishab  | Balussery,Calicut       | Kozhikode  | 952734974 |
+| 102 | Niya    | Thamarassery,Calicut    | Kozhikode  | 985204567 |
+| 104 | Nadha   | Ulliyeri,Calicut        | Kozhikode  | 456789999 |
+| 105 | Karthik | Perinthalmanna,Palakkad | Palakkad   | 789665445 |
+| 106 | Anwar   | Karanthur,Calicut       | Calicut    |      NULL |
+| 107 | Hiba    | Manjeri,Malappuram      | Malappuram |      NULL |
+| 108 | Aleefa  | Mukkam,Calicut          | Calicut    |      NULL |
++-----+---------+-------------------------+------------+-----------+
+8 rows in set (0.39 sec)
+
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 150 | LEXI PEN             |    10 |
+| 151 | PEPSI 250            |    36 |
+| 152 | BISCUIT 250          |    56 |
+| 153 | PROCESSED FOOD S.P   |   148 |
+| 210 | DINNRSET 10PC        |  2044 |
+| 213 | TOY 5Y               |   269 |
+| 216 | CUCUMBER 1KG         |    36 |
+| 223 | CARROT 1KG           |   107 |
+| 226 | NIRAPARA MATTA RICE  |    47 |
+| 230 | COLGATE T.P          |    56 |
+| 243 | PEPSI 1L             |    97 |
+| 255 | 50-50 BISCUIT        |    36 |
+| 256 | DISPOSABLE MASK PACK |   107 |
++-----+----------------------+-------+
+13 rows in set (0.39 sec)
+
++---------+---------+------------+
+| inv_id  | cust_id | inv_date   |
++---------+---------+------------+
+|   13847 |     100 | 2023-02-21 |
+|   14092 |     100 | 2023-03-23 |
+|   14567 |     100 | 2023-03-10 |
+|   16789 |     100 | 2022-01-24 |
+|  202235 |     104 | 2023-02-02 |
+|  234562 |     101 | 2023-03-16 |
+|  456789 |     101 | 2021-04-27 |
+|  634567 |     102 | 2022-02-11 |
+|  834567 |     102 | 2023-03-20 |
+|  874563 |     104 | 2022-10-23 |
+| 4379782 |     102 | 2023-01-22 |
+| 4567898 |     104 | 2022-11-19 |
+| 8457382 |     104 | 2022-12-23 |
+| 9352624 |     102 | 2023-01-09 |
++---------+---------+------------+
+14 rows in set (0.39 sec)
+
++---------+------+----------+
+| inv_id  | pid  | Quantity |
++---------+------+----------+
+|   13847 |  216 |       10 |
+|   14092 |  230 |        2 |
+|  234562 |  255 |        3 |
+| 4379782 |  243 |        2 |
+| 4379782 |  152 |        3 |
+| 9352624 |  213 |        2 |
+| 8457382 |  210 |        2 |
+|  634567 |  256 |       15 |
+| 9352624 |  226 |        4 |
+| 4567898 |  223 |        3 |
+|  874563 |  152 |        3 |
+|  874563 |  213 |        3 |
+|  456789 |  213 |        3 |
+|   13847 |  230 |        5 |
+|   13847 |  255 |        1 |
+|   13847 |  213 |       20 |
+|  202235 |  213 |       10 |
+|  202235 |  152 |        6 |
+|  202235 |  210 |        8 |
+| 4379782 |  210 |        8 |
+| 4379782 |  213 |        9 |
+| 4379782 |  223 |        3 |
+|  234562 |  255 |        5 |
+|  234562 |  152 |        9 |
+|  234562 |  230 |        4 |
++---------+------+----------+
+25 rows in set (0.39 sec)
+
+Query OK, 0 rows affected (0.39 sec)
+
+
+
+
+2.Create a procedure to find greatest of 3 numbers.
+---------------------------------------------------
+
+
+
+mysql> create procedure  greatest1(a int, b int, c int) begin if(a>b) and (a>c) then select a as 'greater'; elseif(b>c) and (b>a) then select b as 'greater'; else select c as 'greater'; end if; end//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call greatest1(20,50,110);
+    -> //
++---------+
+| greater |
++---------+
+|     110 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+
+3.Create a procedure to display invoice details of a particular customer.
+--------------------------------------------------------------------------
+
+
+mysql> create procedure cust(n varchar(30))
+    -> begin
+    -> select Customer.name    -> select Cus,Product.pname,Invoice_item.pid,Invoice_item.Quantity from Invoice_item inner join Invoice_master on Invoice_master.inv_id=Invoice_item.inv_id inner join Product on Product.pid=Invoice_item.pid inner join Customer on Customer.id=Invoice_master.cust_id where Customer.name=n;
+    -> end
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call cust('Nihal');
+    -> //
++-------+--------+---------+------------+---------------+------+----------+
+| name  | inv_id | cust_id | inv_date   | pname         | pid  | Quantity |
++-------+--------+---------+------------+---------------+------+----------+
+| Nihal |  13847 |     100 | 2023-02-21 | CUCUMBER 1KG  |  216 |       10 |
+| Nihal |  13847 |     100 | 2023-02-21 | COLGATE T.P   |  230 |        5 |
+| Nihal |  13847 |     100 | 2023-02-21 | 50-50 BISCUIT |  255 |        1 |
+| Nihal |  13847 |     100 | 2023-02-21 | TOY 5Y        |  213 |       20 |
+| Nihal |  14092 |     100 | 2023-03-23 | COLGATE T.P   |  230 |        2 |
++-------+--------+---------+------------+---------------+------+----------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
