@@ -116,22 +116,18 @@ mysql> SELECT * FROM Customer WHERE ph_no IS NULL AND city="Calicut";
 4.List the product names if it finds any records in the invoice items table has quantity =3 (use special operators)
 -------------------------------------------------------------------------------------
 
+mysql> SELECT pname FROM Product WHERE pid IN(SELECT pid FROM Invoice_item WHERE Quantity=3);
 
-mysql> SELECT pname FROM Product WHERE pid IN(SELECT pid FROM Invoice_item); //WRONG QUERY
-+----------------------+
-| pname                |
-+----------------------+
-| BISCUIT 250          |
-| DINNRSET 10PC        |
-| TOY 5Y               |
-| CUCUMBER 1KG         |
-| CARROT 1KG           |
-| NIRAPARA MATTA RICE  |
-| COLGATE T.P          |
-| PEPSI 1L             |
-| 50-50 BISCUIT        |
-| DISPOSABLE MASK PACK |
-+----------------------+
-10 rows in set (0.00 sec)
++---------------+
+| pname         |
++---------------+
+| 50-50 BISCUIT |
+| BISCUIT 250   |
+| CARROT 1KG    |
+| TOY 5Y        |
++---------------+
+4 rows in set (0.38 sec)
+
 
 //RESUBMIT
+//RESUBMITTED
