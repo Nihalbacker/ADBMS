@@ -1,0 +1,96 @@
+
+
+
+1. Create a trigger to handle updates to the customer table.
+------------------------------------------------------------
+
+
+mysql> delimiter //
+mysql> create table cust(id int,name varchar(25),address varchar(25),city varchar(25),ph_no bigint);
+
+mysql> create trigger updates before update on Customer for each row begin insert into cust values(old.id,old.name,old.address,old.city,old.ph_no); end//
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> select * from Customer;
+    -> //
++-----+---------+-------------------------+------------+-----------+
+| id  | name    | address                 | city       | ph_no     |
++-----+---------+-------------------------+------------+-----------+
+| 100 | Nihal   | Poonooor,Calicut        | Calicut    | 984564218 |
+| 101 | Mishab  | Balussery,Calicut       | Kozhikode  | 952734974 |
+| 102 | Niya    | Thamarassery,Calicut    | Kozhikode  | 985204567 |
+| 104 | Nadha   | Ulliyeri,Calicut        | Kozhikode  | 456789999 |
+| 105 | Karthik | Perinthalmanna,Palakkad | Palakkad   | 789665445 |
+| 106 | Anwar   | Karanthur,Calicut       | Calicut    |      NULL |
+| 107 | Hiba    | Manjeri,Malappuram      | Malappuram |      NULL |
+| 108 | Aleefa  | Mukkam,Calicut          | Calicut    |      NULL |
++-----+---------+-------------------------+------------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> update Customer set city="Kozhikode" where id=106;
+    -> //
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from cust;
+    -> //
++------+-------+-------------------+---------+-------+
+| id   | name  | address           | city    | ph_no |
++------+-------+-------------------+---------+-------+
+|  106 | Anwar | Karanthur,Calicut | Calicut |  NULL |
++------+-------+-------------------+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from Customer;
+    -> //
++-----+---------+-------------------------+------------+-----------+
+| id  | name    | address                 | city       | ph_no     |
++-----+---------+-------------------------+------------+-----------+
+| 100 | Nihal   | Poonooor,Calicut        | Calicut    | 984564218 |
+| 101 | Mishab  | Balussery,Calicut       | Kozhikode  | 952734974 |
+| 102 | Niya    | Thamarassery,Calicut    | Kozhikode  | 985204567 |
+| 104 | Nadha   | Ulliyeri,Calicut        | Kozhikode  | 456789999 |
+| 105 | Karthik | Perinthalmanna,Palakkad | Palakkad   | 789665445 |
+| 106 | Anwar   | Karanthur,Calicut       | Kozhikode  |      NULL |
+| 107 | Hiba    | Manjeri,Malappuram      | Malappuram |      NULL |
+| 108 | Aleefa  | Mukkam,Calicut          | Calicut    |      NULL |
++-----+---------+-------------------------+------------+-----------+
+8 rows in set (0.00 sec)
+
+
+*********************************************************************************************************************************************************
+
+
+2. Create a trigger to handle inserts to the product relation ( if price < 5 the set price to 10).
+
+
+mysql> create trigger product_price before insert on Product for each row begin if new.price<5 then set new.price=10; end if; end//
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into Product values(109,'Cheetos',10);                                -> //
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from Product;
+    -> //
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 109 | Cheetos              |    10 |
+| 150 | LEXI PEN             |    10 |
+| 151 | PEPSI 250            |    36 |
+| 152 | BISCUIT 250          |    56 |
+| 153 | PROCESSED FOOD S.P   |   148 |
+| 210 | DINNRSET 10PC        |  2044 |
+| 213 | TOY 5Y               |   269 |
+| 216 | CUCUMBER 1KG         |    36 |
+| 223 | CARROT 1KG           |   107 |
+| 226 | NIRAPARA MATTA RICE  |    47 |
+| 230 | COLGATE T.P          |    56 |
+| 243 | PEPSI 1L             |    97 |
+| 255 | 50-50 BISCUIT        |    36 |
+| 256 | DISPOSABLE MASK PACK |   107 |
++-----+----------------------+-------+
+14 rows in set (0.00 sec)
+
+
+//completed
