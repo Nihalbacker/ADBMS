@@ -1,0 +1,83 @@
+1.Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database.
+-----------------------------------------------------------------------------------------------------
+
+> use admin
+switched to db admin
+> db.createUser({user:"customer1",pwd:"7865",roles:[{role:"read",db:"invoice"}]})
+Successfully added user: {
+	"user" : "customer1",
+	"roles" : [
+		{
+			"role" : "read",
+			"db" : "invoice"
+		}
+	]
+}
+
+ mongo -u customer1 -p
+MongoDB shell version v5.0.18
+Enter password: 
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("6288daaf-dfee-4dc0-8c57-4071f3b39b8a") }
+MongoDB server version: 5.0.18
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+---
+The server generated these startup warnings when booting: 
+        2023-06-15T14:30:34.764+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2023-06-15T14:30:36.107+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+
+
+
+2.Write a MongoDB query to create the backup for the INVOICE database.
+---------------------------------------------------------------------
+
+
+$ mongodump --db invoice
+2023-06-15T15:29:29.686+0530	writing invoice.product to dump/invoice/product.bson
+2023-06-15T15:29:29.688+0530	done dumping invoice.product (0 documents)
+2023-06-15T15:29:29.703+0530	writing invoice.customer to dump/invoice/customer.bson
+2023-06-15T15:29:29.704+0530	done dumping invoice.customer (4 documents)
+
+
+3.Write a MongoDB query to restore a particular database or a collection.
+-------------------------------------------------------------------------
+
+
+> use invoice
+switched to db invoice
+> db.dropDatabase()
+{ "ok" : 1 }
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+test    0.000GB
+
+
+mongorestore --db invoice dump/invoice
+2023-06-15T15:31:36.743+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
+2023-06-15T15:31:36.743+0530	building a list of collections to restore from dump/invoice dir
+2023-06-15T15:31:36.744+0530	reading metadata for invoice.customer from dump/invoice/customer.metadata.json
+2023-06-15T15:31:36.744+0530	reading metadata for invoice.product from dump/invoice/product.metadata.json
+2023-06-15T15:31:37.003+0530	restoring invoice.customer from dump/invoice/customer.bson
+2023-06-15T15:31:37.088+0530	finished restoring invoice.customer (4 documents, 0 failures)
+2023-06-15T15:31:37.103+0530	restoring invoice.product from dump/invoice/product.bson
+2023-06-15T15:31:37.119+0530	finished restoring invoice.product (0 documents, 0 failures)
+2023-06-15T15:31:37.119+0530	no indexes to restore for collection invoice.customer
+2023-06-15T15:31:37.119+0530	no indexes to restore for collection invoice.product
+2023-06-15T15:31:37.119+0530	4 document(s) restored successfully. 0 document(s) failed to restore.
+
+
+> show dbs
+admin    0.000GB
+config   0.000GB
+invoice  0.000GB
+local    0.000GB
+test     0.000GB
+
