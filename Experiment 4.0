@@ -1,5 +1,5 @@
 1.Write a MongoDB query to display the customer documents having city ‘kozhikode’,’Kochi’.
--------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 
 > db.customer.find({$or:[{city:'Kochi'},{city:'Kozhikode'}]})
