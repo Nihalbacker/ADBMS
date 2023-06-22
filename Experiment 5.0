@@ -1,5 +1,5 @@
 1.Write a MongoDB query to sort customer details in ascending order of their name.
-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
 
 
 > db.customer.find().sort({name:1}).pretty()
